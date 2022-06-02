@@ -1,0 +1,354 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:8000/api/
+# GestionEtudiants
+
+L'API GestionEtudiants permet aux clients d'accéder aux données distants et d'en insérer à tr
+avers les différentes applications frontend en étant authentifié
+
+## Salles Collection [api/salles]
+
+### Lister toutes les salles [GET]
+
++ endpoint: [api/salles/]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "date_created": "2022-06-01T10:19:40.885820Z",
+                "date_updated": "2022-06-01T10:19:40.885820Z",
+                "nom": "A1",
+                "batiment": "A",
+                "taille": 75
+            },
+            {
+                "id": 2,
+                "date_created": "2022-06-01T10:19:50.322494Z",
+                "date_updated": "2022-06-01T10:19:50.322494Z",
+                "nom": "A2",
+                "batiment": "A",
+                "taille": 55
+            }
+        ]
+
+### Afficher détails sur une salle [GET]
+
+Renvoie la salle spécifique avec les attributs liée à la salle et les cinq (05) dernières programmations
+faites sur cette salle
+
++ endpoint: [api/salles/{id}]
+
++ Response 200 (application/json)
+
+        {
+            "id": 11,
+            "nom": "C3",
+            "batiment": "C",
+            "taille": 90,
+            "date_created": "2022-06-01T15:17:33.409727Z",
+            "date_updated": "2022-06-01T15:17:33.410727Z",
+            "programmations": []
+        }
+
+### Créer nouvelle salle [POST]
+
++ endpoint: [api/salles/]
+
+Vous pouvez créer votre propre Salle en utilisant cette action. 
+Elle prend un objet JSON contenant une salle
+
++ NOTES SUR LES PARAMETRES DE L'OBJET
+
+    Le champ "batiment" peut prendre les valeur: null ou un champ vide
+
++ Request (application/json)
+
+        {
+            "nom": "C3",
+            "batiment": "C",
+            "taille": 90
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: api/salles/11
+
+    + Body
+
+            {
+                "id": 11,
+                "date_created": "2022-06-01T15:17:33.409727Z",
+                "date_updated": "2022-06-01T15:17:33.410727Z",
+                "nom": "C3",
+                "batiment": "C",
+                "taille": 90
+            }
+            
+### Modifier une salle [PUT]
+
+Vous pouvez modifier une salle existante en utilisant cette action. 
+Elle prend un objet JSON contenant une salle
+
++ endpoint: [api/salles/{id}/]
+
++ NOTES SUR LES PARAMETRES DE L'OBJET
+
+    Le champ "batiment" peut prendre les valeur: null ou un champ vide
+
+
++ Request (application/json)
+
+        {
+            "nom": "D4",
+            "batiment": "D",
+            "taille": 90
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: api/departements/11
+
+    + Body
+
+            {
+                "id": 11,
+                "date_created": "2022-06-01T15:17:33.409727Z",
+                "date_updated": "2022-06-01T15:17:33.410727Z",
+                "nom": "D4",
+                "batiment": "D",
+                "taille": 90
+            }
+            
+
+## Departements Collection [api/departements/]
+
+### Lister tous les départements [GET]
+
++ endpoint: [api/departements/]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "date_created": "2022-06-01T14:12:36.890283Z",
+                "date_updated": "2022-06-01T14:12:36.890283Z",
+                "nom": "Informatique",
+                "sigle": "Informatique"
+            },
+            {
+                "id": 2,
+                "date_created": "2022-06-01T14:12:47.728560Z",
+                "date_updated": "2022-06-01T14:12:47.728560Z",
+                "nom": "Gestion",
+                "sigle": "Gestion"
+            }
+        ]
+
+### Afficher détails sur un département [GET]
+
+Cet endpoint renvoie les détails sur le département ainsi que les filières de ce département
+
++ endpoint: [api/departements/{id}]
+
++ Response 200 (application/json)
+
+        {
+    "id": 2,
+    "nom": "Gestion",
+    "sigle": "Gestion",
+    "date_created": "2022-06-01T14:12:47.728560Z",
+    "date_updated": "2022-06-01T14:12:47.728560Z",
+    "filieres": [
+        {
+            "id": 2,
+            "date_created": "2022-06-01T14:14:04.469762Z",
+            "date_updated": "2022-06-01T14:14:04.469762Z",
+            "nom": "Gestion Financière et Comptable",
+            "sigle": "GFC",
+            "departement_id": 2
+        },
+        {
+            "id": 5,
+            "date_created": "2022-06-01T14:15:16.482371Z",
+            "date_updated": "2022-06-01T14:15:16.482371Z",
+            "nom": "Gestion des Ressources Humaines",
+            "sigle": "GRH",
+            "departement_id": 2
+        }
+    ]
+}
+
+### Créer nouveau département [POST]
+
+Vous pouvez créer votre propre Département en utilisant cette action. 
+Elle prend un objet JSON contenant un département
+
++ endpoint: [api/departements/]
+
++ Request (application/json)
+
+        {
+            "nom": "Statistiques",
+            "batiment": "STAT"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: api/departements/4
+
+    + Body
+
+            {
+                "id": 4,
+                "date_created": "2022-06-01T16:01:53.133558Z",
+                "date_updated": "2022-06-01T16:01:53.133558Z",
+                "nom": "Statistiques",
+                "sigle": "STAT"
+            }
+            
+### Modifier un département [PUT]
+
+Vous pouvez modifier un département existant en utilisant cette action. 
+Elle prend un objet JSON contenant un département
+
++ endpoint: [api/departements/{id}/]
+
++ Request (application/json)
+
+        {
+            "nom": "Statistiques",
+            "batiment": "Stat"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: api/departements/4
+
+    + Body
+
+            {
+                "id": 4,
+                "date_created": "2022-06-01T16:01:53.133558Z",
+                "date_updated": "2022-06-01T16:06:40.251196Z",
+                "nom": "Statistiques",
+                "sigle": "Stat"
+            }
+            
+                     
+
+
+## Filieres Collection [api/filieres]
+
+### Lister toutes les filieres [GET]
+
++ endpoint: [api/filieres/]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "date_created": "2022-06-01T14:13:24.190253Z",
+                "date_updated": "2022-06-01T14:13:24.190253Z",
+                "nom": "Informatique de Gestion",
+                "sigle": "IG",
+                "departement_id": 1
+            },
+            {
+                "id": 2,
+                "date_created": "2022-06-01T14:14:04.469762Z",
+                "date_updated": "2022-06-01T14:14:04.469762Z",
+                "nom": "Gestion Financière et Comptable",
+                "sigle": "GFC",
+                "departement_id": 2
+            }
+        ]
+
+### Afficher détails sur une filiere [GET]
+
++ endpoint: [api/filiere/{id}]
+
++ Response 200 (application/json)
+
+        {
+            "id": 3,
+            "date_created": "2022-06-01T14:14:23.243449Z",
+            "date_updated": "2022-06-01T14:14:23.243449Z",
+            "nom": "Gestion Commerciale",
+            "sigle": "GCO",
+            "departement_id": 2
+        }
+
+### Créer nouvelle filière [POST]
+
++ endpoint: [api/filieres/]
+
+Vous pouvez créer votre propre Filiere en utilisant cette action. 
+Elle prend un objet JSON contenant une filiere
+
++ Request (application/json)
+
+        {
+            "nom": "Statistiques",
+            "sigle": "STAT",
+            "departement_id": 4
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: api/filieres/7
+
+    + Body
+
+            {
+                "id": 7,
+                "date_created": "2022-06-01T16:22:10.786614Z",
+                "date_updated": "2022-06-01T16:22:10.786614Z",
+                "nom": "Statistiques",
+                "sigle": "STAT",
+                "departement_id": 4
+            }
+            
+### Modifier une salle [PUT]
+
+Vous pouvez modifier une Filiere existante en utilisant cette action. 
+Elle prend un objet JSON contenant une Filiere
+
++ endpoint: [api/salles/{id}/]
+
++ Request (application/json)
+
+        {
+            "nom": "Statistiques",
+            "sigle": "Stat",
+            "departement_id": 4
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: api/filieres/7
+
+    + Body
+
+            {
+                "id": 7,
+                "date_created": "2022-06-01T16:22:10.786614Z",
+                "date_updated": "2022-06-01T16:23:49.581929Z",
+                "nom": "Statistiques",
+                "sigle": "Stat",
+                "departement_id": 4
+            }
