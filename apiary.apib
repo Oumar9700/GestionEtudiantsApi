@@ -9,7 +9,7 @@ avers les différentes applications frontend en étant authentifié
 
 ### Lister toutes les salles [GET]
 
-+ endpoint: [api/salles/]
++ endpoint: [api/salles]
 
 + Response 200 (application/json)
 
@@ -35,7 +35,7 @@ avers les différentes applications frontend en étant authentifié
 ### Afficher détails sur une salle [GET]
 
 Renvoie la salle spécifique avec les attributs liée à la salle et les cinq (05) dernières programmations
-faites sur cette salle
+faites sur cette salle. Pour l'exemple suivant, aucune programmation n'est définie pour cette salle.
 
 + endpoint: [api/salles/{id}]
 
@@ -73,11 +73,11 @@ Elle prend un objet JSON contenant une salle
 + Response 201 (application/json)
 
     + Headers
-
+    
             Location: api/salles/11
 
     + Body
-
+    
             {
                 "id": 11,
                 "date_created": "2022-06-01T15:17:33.409727Z",
@@ -86,7 +86,7 @@ Elle prend un objet JSON contenant une salle
                 "batiment": "C",
                 "taille": 90
             }
-            
+
 ### Modifier une salle [PUT]
 
 Vous pouvez modifier une salle existante en utilisant cette action. 
@@ -97,7 +97,6 @@ Elle prend un objet JSON contenant une salle
 + NOTES SUR LES PARAMETRES DE L'OBJET
 
     Le champ "batiment" peut prendre les valeur: null ou un champ vide
-
 
 + Request (application/json)
 
@@ -110,11 +109,11 @@ Elle prend un objet JSON contenant une salle
 + Response 201 (application/json)
 
     + Headers
-
+    
             Location: api/departements/11
 
     + Body
-
+    
             {
                 "id": 11,
                 "date_created": "2022-06-01T15:17:33.409727Z",
@@ -123,13 +122,22 @@ Elle prend un objet JSON contenant une salle
                 "batiment": "D",
                 "taille": 90
             }
-            
+
+### Supprimer une salle [DELETE]
+
+Fais une suppression d'une salle spécifique à partir de l'id reçue.
+puis renvoie une response 204 (No content) 
+
++ endpoint: [api/salles/{id}/]
+
++ Response 204 (No Content)
+
 
 ## Departements Collection [api/departements/]
 
 ### Lister tous les départements [GET]
 
-+ endpoint: [api/departements/]
++ endpoint: [api/departements]
 
 + Response 200 (application/json)
 
@@ -159,29 +167,29 @@ Cet endpoint renvoie les détails sur le département ainsi que les filières de
 + Response 200 (application/json)
 
         {
-    "id": 2,
-    "nom": "Gestion",
-    "sigle": "Gestion",
-    "date_created": "2022-06-01T14:12:47.728560Z",
-    "date_updated": "2022-06-01T14:12:47.728560Z",
-    "filieres": [
-        {
             "id": 2,
-            "date_created": "2022-06-01T14:14:04.469762Z",
-            "date_updated": "2022-06-01T14:14:04.469762Z",
-            "nom": "Gestion Financière et Comptable",
-            "sigle": "GFC",
-            "departement_id": 2
-        },
-        {
-            "id": 5,
-            "date_created": "2022-06-01T14:15:16.482371Z",
-            "date_updated": "2022-06-01T14:15:16.482371Z",
-            "nom": "Gestion des Ressources Humaines",
-            "sigle": "GRH",
-            "departement_id": 2
-        }
-    ]
+            "nom": "Gestion",
+            "sigle": "Gestion",
+            "date_created": "2022-06-01T14:12:47.728560Z",
+            "date_updated": "2022-06-01T14:12:47.728560Z",
+            "filieres": [
+                            {
+                                "id": 2,
+                                "date_created": "2022-06-01T14:14:04.469762Z",
+                                "date_updated": "2022-06-01T14:14:04.469762Z",
+                                "nom": "Gestion Financière et Comptable",
+                                "sigle": "GFC",
+                                "departement_id": 2
+                            },
+                            {
+                                "id": 5,
+                                "date_created": "2022-06-01T14:15:16.482371Z",
+                                "date_updated": "2022-06-01T14:15:16.482371Z",
+                                "nom": "Gestion des Ressources Humaines",
+                                "sigle": "GRH",
+                                "departement_id": 2
+                            }
+                        ]
 }
 
 ### Créer nouveau département [POST]
@@ -201,11 +209,9 @@ Elle prend un objet JSON contenant un département
 + Response 201 (application/json)
 
     + Headers
-
             Location: api/departements/4
 
     + Body
-
             {
                 "id": 4,
                 "date_created": "2022-06-01T16:01:53.133558Z",
@@ -213,8 +219,8 @@ Elle prend un objet JSON contenant un département
                 "nom": "Statistiques",
                 "sigle": "STAT"
             }
-            
-### Modifier un département [PUT]
+
+### Modifier un departement [PUT]
 
 Vous pouvez modifier un département existant en utilisant cette action. 
 Elle prend un objet JSON contenant un département
@@ -225,17 +231,15 @@ Elle prend un objet JSON contenant un département
 
         {
             "nom": "Statistiques",
-            "batiment": "Stat"
+            "sigle": "Stat"
         }
 
 + Response 201 (application/json)
 
     + Headers
-
             Location: api/departements/4
 
     + Body
-
             {
                 "id": 4,
                 "date_created": "2022-06-01T16:01:53.133558Z",
@@ -243,15 +247,23 @@ Elle prend un objet JSON contenant un département
                 "nom": "Statistiques",
                 "sigle": "Stat"
             }
-            
-                     
+
+### Supprimer un département [DELETE]
+
+Fais une suppression d'un département spécifique à partir de l'id fournit.
+Fais aussi une suppression de toutes les filières appartenant à ce département
+Puis renvoie une response 204 (No content) 
+
++ endpoint: [api/departements/{id}/]
+
++ Response 204 (No Content)
 
 
 ## Filieres Collection [api/filieres]
 
 ### Lister toutes les filieres [GET]
 
-+ endpoint: [api/filieres/]
++ endpoint: [api/filieres]
 
 + Response 200 (application/json)
 
@@ -352,3 +364,12 @@ Elle prend un objet JSON contenant une Filiere
                 "sigle": "Stat",
                 "departement_id": 4
             }
+
+### Supprimer une filière [DELETE]
+
+Fais une suppression d'une filière spécifique à partir de l'id reçue.
+Puis renvoie une response 204 (No content) 
+
++ endpoint: [api/filieres/{id}/]
+
++ Response 204 (No Content)
